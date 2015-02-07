@@ -1,0 +1,26 @@
+<h1><%= @photo.description %></h1>
+
+<h2> by </h2>
+
+<h2><%= @user.name %></h2>
+
+<%= image_tag @photo.image.url(:medium) %>
+</br> </br>
+
+<%# Adding dropdown to tag users in the photo %>
+<%= form_for (@tag) do |f| %>
+  <div class="form-group">
+    <h4> Tag people you see in this photo: <%= f.collection_select :user_id, User.all, :id, :name %>  <%= f.hidden_field :photo_id, :value => @photo.id  %>
+    <%= f.submit(:class => "btn btn-success btn-sm")%></h4>
+  </div>
+
+<% end %>
+</br>
+
+
+
+
+<%= link_to "Post a New Photo", new_user_photo_path(@user), :class => "btn btn-default" %>
+
+
+<%= link_to "Home Page", root_path, :class => "btn btn-default" %>

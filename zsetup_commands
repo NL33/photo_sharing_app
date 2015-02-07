@@ -1,0 +1,67 @@
+open postgresql
+$ rails new photo_sharing_app -d postgresql –T
+
+confirm:
+	config/application.rb does not contain: config.action_controller.permit_all_parameters = true 
+
+	app/controllers/application_controller.rb: includes protect_from_forgery with: :exception [protect against csrf]
+
+*config/database.yml:
+
+development:   
+  adapter: postgresql   
+  database: rails_photo_sharing_app_development    
+
+test:
+  adapter: postgresql   
+  database: rails_photo_sharing_app_test
+
+open postgres
+
+$ rake db:create
+
+update gemfile
+
+$ bundle install
+
+$ rails generate rspec:install
+
+*Bootstrap
+stylesheets/application.css: change to css.scss (for sass).  Add:
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+[@import "@import "styling.scss";[or any other scss files for styling]";]
+
+javascripts/application.js: Add:
+//= require bootstrap-sprockets
+
+Flash Messages:
+views/layouts/application.html.erb:
+    <% if flash[:notice] %>
+      <div class="alert alert-info">
+        <%= flash[:notice] %>
+      </div>
+    <% end %>
+    <% if flash[:alert] %>
+      <div class="alert alert-danger">
+        <%= flash[:alert] %>
+      </div>
+    <% end %>
+
+*Migration
+
+$ rails generate migration create_users  
+$ rails generate migration create_photos
+    $ rails generate migration AddImageToPhotos image:attachment
+$ rails generate migration create_tags
+    $ rails generate migration AddIdsToTags ids:integer
+$ rails generate migration create_photos_tags
+$ rails generate migration create_favorites
+
+[Note: also create sessions contoller for logins--no migration or model required there]
+
+[examples of rollback, remove, and add:	
+	$ rake db:rollback VERSION=20150121004709 (delete file first; also can use STEP = 2)
+	$ rails generate migration RemoveRecipie_IdFromRecipesTags recipie_id:integer
+	$ rails generate migration AddImageToPhotos image:attachment

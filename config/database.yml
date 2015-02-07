@@ -1,0 +1,7 @@
+development:   
+  adapter: postgresql   
+  database: rails_photo_sharing_app_development    
+
+test:
+  adapter: postgresql   
+  database: rails_photo_sharing_app_test
