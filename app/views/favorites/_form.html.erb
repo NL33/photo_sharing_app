@@ -1,0 +1,10 @@
+<%= render("layouts/errors", :object => @favorite) %>
+
+<%= form_for (@favorite) do |f| %>
+  <div class="form-group">
+     <%= f.hidden_field :user_id, :value => current_user.id  %>  
+     <%= f.hidden_field :photo_id, :value => @photo.id  %>
+    <%= f.submit "Add to Favorites", :class => "btn btn-success btn-sm"%>
+  </div>
+
+<% end %>

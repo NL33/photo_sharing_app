@@ -1,13 +1,20 @@
+<%= content_for(:title, "Photo Sharing | Home") %>
+
 <h2> Photo Sharing! </h2>
 
 <% @users.each do |user| %>
   <h5>Contributor: <%= link_to user.name, user_path(user) %></h5>
- <h6> Photos </h6>
+ <% if user.photos.count > 0 %>
+  <h6> Photos: </h6>
   <% user.photos.each do |photo| %>
     <%= link_to image_tag(photo.image.url(:medium)), user_photo_path(user, photo) %></br>
 	<p><%= photo.description %></p></br>
 	</br>
   <% end %>
+ <% else %>
+   <h6> No photos yet. <h6>
+ <% end %>
+ </br> </br>
 <% end %>
 
 

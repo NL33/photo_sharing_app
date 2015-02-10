@@ -1,3 +1,6 @@
+<%= content_for(:title, "Photo Sharing!") %>
+
+
 <%= form_for [@user, @photo], :html => { :multipart => true} do |f| %>
   <div class="form-group">
     <%= f.label :image %>
@@ -10,6 +13,7 @@
   </div>
 
    <%= f.hidden_field :user_id, :value => @user.id %>
+   
   <div class="form-group"><%= f.submit "Submit", :class => 'btn btn-info' %></div>
 
 <% end %>

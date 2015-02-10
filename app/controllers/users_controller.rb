@@ -21,7 +21,8 @@ class UsersController < ApplicationController
   end
  
   def show
-    @user = User.find(params[:id]) 
+    @user = User.find(params[:id])
+    @favorites = Favorite.where(:user_id => @user.id)
   end
 
   def edit 

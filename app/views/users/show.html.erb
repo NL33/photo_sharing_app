@@ -1,3 +1,5 @@
+<%= content_for(:title, "User Detail") %>
+
 <h2> <%= @user.name %> </h2>
 
  <% @user.photos.each do |photo| %>
@@ -7,11 +9,29 @@
   <% end %>
 
 <% if @user == current_user %>
-  <h3>Photos People Have Tagged Me In: </h3>
-     <% @user.tags.each do |tag| %>
-       <%= link_to image_tag(tag.show_photo.image.url(:medium)), user_photo_path(@user, tag.show_photo) %></br>
-        <%= tag.show_photo.description %></br>
+  <% if @favorites.count >= 1  %> 
+    <h3>My Favorites: </h3>
+       <% @favorites.each do |favorite| %>
+         <%= image_tag(favorite.photo.image.url(:medium)) %></br>
+          </br>
+        <% end %>
+   <% end %>
+
+   <% if @user.tags.count >= 1 %>
+      <h3>Photos People Have Tagged Me In: </h3>
+       <% @user.tags.each do |tag| %> <%#note: "tags" can be done in more straightforward way that "favorites have been done" (defining @tags in the users controller show action). Here, a separate method in the Tag model is used, to show different ways of approaching. %>
+         <%= link_to image_tag(tag.show_photo.image.url(:medium)), user_photo_path(@user, tag.show_photo) %></br>
+          <%= tag.show_photo.description %></br>
+        <% end %>
+   <% end %>
+
+  <% if @favorites.count >= 1  %> 
+    <h3> Photos We Recommend You Check Out (other users with similar tastes favorited these): </h3>
+       <% @user.recommend_photos.each do |recommend| %>
+           <%= image_tag(recommend.image.url(:medium)) %></br>
+           <%= recommend.description %></br>
       <% end %>
+  <% end %>
   
 <% end %>
 </br>

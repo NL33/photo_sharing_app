@@ -11,6 +11,3 @@ end
 
 
 end
-
-#photos.tags.each do |tag|
-	#if tag.user_id == @user.id

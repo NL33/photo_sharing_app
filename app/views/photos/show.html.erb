@@ -1,3 +1,5 @@
+<%= content_for(:title, "Show Image") %>
+
 <h1><%= @photo.description %></h1>
 
 <h2> by </h2>
@@ -7,15 +9,24 @@
 <%= image_tag @photo.image.url(:medium) %>
 </br> </br>
 
+<% if @user.id != current_user.id %> <%#if statement here added to remove favorite button if user is looking at his/her own photos (ie, users cannot favorite their own photos)%>
+    <%= render 'favorites/form' %>
+<% end %>
+
+
 <%# Adding dropdown to tag users in the photo %>
 <%= form_for (@tag) do |f| %>
   <div class="form-group">
-    <h4> Tag people you see in this photo: <%= f.collection_select :user_id, User.all, :id, :name %>  <%= f.hidden_field :photo_id, :value => @photo.id  %>
+    <h4> Tag people you see in this photo: 
+     <%= f.collection_select :user_id, User.all, :id, :name %>  
+     <%= f.hidden_field :photo_id, :value => @photo.id  %>
     <%= f.submit(:class => "btn btn-success btn-sm")%></h4>
   </div>
 
 <% end %>
 </br>
+
+
 
 
 

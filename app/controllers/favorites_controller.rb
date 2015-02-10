@@ -1,23 +1,24 @@
-class TagsController < ApplicationController
+class FavoritesController < ApplicationController
   before_filter :authorize, only: [:new, :create, :edit, :update, :destroy]  #meaning must be logged in (per authorize method) to create, edit and update.
  
   def index 
-    @tags = Tag.all
+    @favorites = Favorite.all
     @users = User.all
   end
 
   def new 
-    @tag = Tag.new  #note: this line is likely not required
+    @favorite = Favorite.new #likely not required
   end
 
   def create
-    @tag = Tag.new(tag_params)
-    if @tag.save
-      flash[:notice] = "tag added."
-      redirect_to :back 
-    else
-      render 'new' 
-    end
+      @favorite = Favorite.new(favorite_params)
+      if @favorite.save
+       flash[:notice] = "favorite added."
+        redirect_to :back 
+       else
+       redirect_to :back, notice: "you have already added this to your favorites"
+      end
+     
   end
 
   def show
@@ -44,8 +45,8 @@ class TagsController < ApplicationController
 
  private
 
-    def tag_params
-      params.require(:tag).permit(:user_id, :photo_id)
+    def favorite_params
+      params.require(:favorite).permit(:user_id, :photo_id)
     end
 
 end

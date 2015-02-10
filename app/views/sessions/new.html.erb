@@ -1,3 +1,5 @@
+<%= content_for(:title, "Log In!") %>
+
 <h1>Log In</h1>
 
 <%= form_tag sessions_path do %>  <%#NOTE: using form_tag instead of form_for because we are not working off of a model here.We are going to the sessions_path, which will trigger the create action in the sessions controller.%>
@@ -11,3 +13,5 @@
   </div>
   <div class="actions"><%= submit_tag "Log In" %></div>
 <% end %>
+
+<%= link_to "Home Page", root_path, :class => "btn btn-default" %>
