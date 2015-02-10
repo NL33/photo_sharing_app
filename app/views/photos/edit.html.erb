@@ -1,0 +1,10 @@
+<%= content_for(:title, "Edit Photo | Photo Sharing App") %>
+
+<h1>Edit Photo</h1>
+
+<%= render 'form' %>
+
+<%= link_to "Post a New Photo", new_user_photo_path(@user), :class => "btn btn-default" %>
+
+
+<%= link_to "Home Page", root_path, :class => "btn btn-default" %>

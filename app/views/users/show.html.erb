@@ -25,7 +25,7 @@
         <% end %>
    <% end %>
 
-  <% if @favorites.count >= 1  %> 
+  <% if @user.recommend_photos.count >= 1  %> 
     <h3> Photos We Recommend You Check Out (other users with similar tastes favorited these): </h3>
        <% @user.recommend_photos.each do |recommend| %>
            <%= image_tag(recommend.image.url(:medium)) %></br>

@@ -20,27 +20,6 @@ class TagsController < ApplicationController
     end
   end
 
-  def show
-    @user = User.find(params[:user_id])
-    @photo = Photo.find(params[:id]) 
-  end
-
-  def edit 
-    @photo = Photo.find(params[:id])
-  end
-
-  def update 
-    @photo = Photo.find(params[:id])
-    @photo.update(photo_params)
-    redirect_to root_path
-  end
-
- def destroy 
-    @photo = Photo.find(params[:id])
-    @photo.destroy
-     flash[:notice] = "photo Deleted"
-    redirect_to photos_path
- end
 
  private
 

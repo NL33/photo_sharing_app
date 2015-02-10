@@ -34,21 +34,28 @@ class PhotosController < ApplicationController
     @favorite = Favorite.new
   end
 
-  def edit 
-    @photo = Photo.find(params[:id])
+  def edit  
+    if User.find(params[:user_id]) != current_user
+      flash[:notice] = "You are not permitted to edit this photo"
+      redirect_to root_path
+    else
+      @user = current_user
+      @photo = Photo.find(params[:id])
+    end
   end
 
   def update 
     @photo = Photo.find(params[:id])
     @photo.update(photo_params)
+     flash[:notice] = "Photo Updated"
     redirect_to root_path
   end
 
  def destroy 
     @photo = Photo.find(params[:id])
     @photo.destroy
-     flash[:notice] = "photo Deleted"
-    redirect_to photos_path
+     flash[:notice] = "Photo Deleted"
+    redirect_to root_path
  end
 
  private

@@ -25,22 +25,7 @@ class UsersController < ApplicationController
     @favorites = Favorite.where(:user_id => @user.id)
   end
 
-  def edit 
-    @user = User.find(params[:id])
-  end
-
-  def update 
-    @user = User.find(params[:id])
-    @user.update(photo_params)
-    redirect_to root_path
-  end
-
- def destroy 
-    @user = User.find(params[:id])
-    @user.destroy
-     flash[:notice] = "User Deleted"
-    redirect_to root_path
- end
+  
 
   private
 
